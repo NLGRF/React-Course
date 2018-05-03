@@ -24,6 +24,9 @@ class App extends Component {
     myArray.push(item);
     this.setState({data:myArray});
   }
+  onChange(event){
+    this.setState({type:event.target.value})
+  }
     render() {
 
       return (
@@ -33,8 +36,11 @@ class App extends Component {
           <Footer />
           <h1>{this.state.message}</h1>
           <button onClick={this.changeMessage}>{this.state.message}</button><br/>
-            <h1>{this.state.data}</h1>
-          <button onClick={this.insertData}>Insert</button>
+          <h1>{this.state.data}</h1>
+          <button onClick={this.insertData}>Insert</button><br/><br/>
+          // <input type="text" onChange={this.onChange.bind(this)}></input>
+          <input type="text" onChange={this.onChange.bind(this)}/>
+          <h1>WelCome : {this.state.type}</h1>
         </div>
       );
     }
