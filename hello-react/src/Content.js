@@ -4,7 +4,10 @@ class Content extends Component {
     render() {
       return (
         <div>
-          <h3>React Course</h3>
+          <h3>Web React</h3>
+          <p>{this.props.title}</p>
+          <p>{this.props.name}</p>
+          <p>{this.props.price}</p>
         </div>
       );
     }

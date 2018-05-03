@@ -8,7 +8,7 @@ class App extends Component {
       return (
         <div>
           <Header />
-          <Content />
+          <Content title="Course React" name="Non Robot" price="Free"/>
           <Footer />
         </div>
       );
