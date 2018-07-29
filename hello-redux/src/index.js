@@ -3,13 +3,32 @@
 // import App from './App';
 //
 // ReactDOM.render(<App />, document.getElementById('root'));
-import {createStore} from "redux";
+import {createStore,combineReducers} from "redux";
 const initialState={
   result:15000,
   value:[]
 }
+const userReducer=(state={name:"Non",age:22},action)=>{
+  switch (action.type) {
+    case "setName":
+          state={
+          ...state,
+          name:action.payload
+          }
+      break;
+    case "setAge":
+          state={
+          ...state,
+          age:action.payload
+          }
+      break;
+    default:
 
-const reducer=(state=initialState,action)=>{
+  }
+  return state;
+}
+
+const employeeReducer=(state=initialState,action)=>{
   switch (action.type) {
     case "ADD":
           state={
@@ -34,7 +53,7 @@ const reducer=(state=initialState,action)=>{
   }
   return state;
 }
-const store=createStore(reducer);
+const store=createStore(combineReducers({employeeReducer,userReducer}));
 store.subscribe(()=>{
   console.log("Update Store",store.getState());
 })
@@ -43,14 +62,10 @@ store.dispatch({
   payload:15000
 });
 store.dispatch({
-  type:"ADD",
-  payload:15000
+  type:"setName",
+  payload:"Redux"
 });
 store.dispatch({
-  type:"ADD",
-  payload:30000
-});
-store.dispatch({
-  type:"SUBTRACT",
-  payload:8000
+  type:"setAge",
+  payload:"69"
 });
