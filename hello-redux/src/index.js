@@ -3,7 +3,7 @@
 // import App from './App';
 //
 // ReactDOM.render(<App />, document.getElementById('root'));
-import {createStore,combineReducers} from "redux";
+import {createStore,combineReducers,applyMiddleware} from "redux";
 const initialState={
   result:15000,
   value:[]
@@ -53,9 +53,13 @@ const employeeReducer=(state=initialState,action)=>{
   }
   return state;
 }
-const store=createStore(combineReducers({employeeReducer,userReducer}));
+const mylogger=(store)=>(next)=>(action)=>{
+  console.log("Log Action",action);
+  next(action);
+}
+const store=createStore(combineReducers({employeeReducer,userReducer}),{},applyMiddleware(mylogger));
 store.subscribe(()=>{
-  console.log("Update Store",store.getState());
+  // console.log("Update Store",store.getState());
 })
 store.dispatch({
   type:"ADD",
