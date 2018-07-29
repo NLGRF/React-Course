@@ -1,9 +1,9 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import App from './App';
-//
-// ReactDOM.render(<App />, document.getElementById('root'));
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 import {createStore,combineReducers,applyMiddleware} from "redux";
+import {Provider} from 'react-redux';
+
 const initialState={
   result:15000,
   value:[]
@@ -57,19 +57,13 @@ const mylogger=(store)=>(next)=>(action)=>{
   console.log("Log Action",action);
   next(action);
 }
-const store=createStore(combineReducers({employeeReducer,userReducer}),{},applyMiddleware(mylogger));
+const store=createStore(combineReducers({emp:employeeReducer,user:userReducer}),{},applyMiddleware(mylogger));
 store.subscribe(()=>{
-  // console.log("Update Store",store.getState());
+  console.log("Update Store",store.getState());
 })
-store.dispatch({
-  type:"ADD",
-  payload:15000
-});
-store.dispatch({
-  type:"setName",
-  payload:"Redux"
-});
-store.dispatch({
-  type:"setAge",
-  payload:"69"
-});
+ReactDOM.render(
+<Provider store={store}>
+  <App />
+</Provider>
+, document.getElementById('root')
+);
