@@ -4,29 +4,53 @@
 //
 // ReactDOM.render(<App />, document.getElementById('root'));
 import {createStore} from "redux";
+const initialState={
+  result:15000,
+  value:[]
+}
 
-const reducer=(state,action)=>{
+const reducer=(state=initialState,action)=>{
   switch (action.type) {
     case "ADD":
-          state+=action.payload;
+          state={
+          /*  result:state.result,
+            value:state.value */
+          ...state, // Show All State
+          result:state.result+=action.payload,
+          value:[...state.value,action.payload]
+          }
       break;
     case "SUBTRACT":
-          state-=action.payload;
+          state={
+          /*  result:state.result,
+            value:state.value */
+          ...state, // Show All State
+          result:state.result-=action.payload,
+          value:[...state.value,action.payload]
+          }
       break;
     default:
 
   }
   return state;
 }
-const store=createStore(reducer,15000);
+const store=createStore(reducer);
 store.subscribe(()=>{
   console.log("Update Store",store.getState());
 })
 store.dispatch({
   type:"ADD",
-  payload:500
+  payload:15000
+});
+store.dispatch({
+  type:"ADD",
+  payload:15000
+});
+store.dispatch({
+  type:"ADD",
+  payload:30000
 });
 store.dispatch({
   type:"SUBTRACT",
-  payload:10000
+  payload:8000
 });
